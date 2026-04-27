@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriPrime – Materiais para Nutricionistas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1fa832;
+    --green-dark: #166b21;
+    --green-light: #e8f8eb;
+    --green-mid: #2ec244;
+    --accent: #f5a623;
+    --white: #ffffff;
+    --dark: #1a2e1b;
+    --gray: #5a6b5b;
+    --gray-light: #f4f7f4;
+    --text: #2d3a2e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    background: #fff;
+    overflow-x: hidden;
+  }
+
+  /* BARRA TOPO */
+  .top-bar {
+    background: var(--green);
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+  .top-bar span { color: #ffe066; }
+
+  /* NOTIFICAÇÃO SOCIAL PROOF */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    background: #fff;
+    border-left: 4px solid var(--green);
+    border-radius: 10px;
+    padding: 12px 16px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.82rem;
+    z-index: 9999;
+    max-width: 280px;
+    animation: slideInToast 0.5s ease, fadeOutToast 0.5s ease 5s forwards;
+  }
+  .toast-icon { font-size: 1.3rem; }
+  .toast strong { display: block; font-size: 0.85rem; color: var(--dark); }
+  .toast span { color: var(--gray); }
+  @keyframes slideInToast { from { transform: translateX(-120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  @keyframes fadeOutToast { to { opacity: 0; transform: translateX(-120%); } }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, #f0faf1 0%, #e8f8eb 60%, #d4f0d8 100%);
+    padding: 60px 20px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(31,168,50,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1.18;
+    max-width: 700px;
+    margin: 0 auto 16px;
+  }
+  .hero h1 em { color: var(--green); font-style: normal; }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--gray);
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+  }
+  .hero-sub strong { color: var(--dark); }
+
+  /* VSL */
+  .vsl-wrapper {
+    max-width: 380px;
+    margin: 0 auto 24px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(31,168,50,0.18);
+    background: #111;
+    aspect-ratio: 9/16;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .vsl-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    opacity: 0.5;
+  }
+  .vsl-placeholder .play-btn {
+    width: 64px; height: 64px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;
+  }
+  .vsl-placeholder p { font-size: 0.85rem; }
+
+  .social-proof-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    font-size: 0.9rem;
+    color: var(--gray);
+  }
+  .stars { color: #f5a623; font-size: 1.1rem; }
+  .dot { color: #ccc; }
+
+  .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #22c43a, #1a9e2e);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 18px 36px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(31,168,50,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: rgba(255,255,255,0.15);
+    transform: skewX(-20deg);
+    transition: left 0.4s;
+  }
+  .btn-primary:hover::after { left: 150%; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(31,168,50,0.5); }
+
+  .btn-secondary {
+    display: inline-block;
+    background: linear-gradient(135deg, #f5a623, #e09010);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 18px 36px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(245,166,35,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(245,166,35,0.5); }
+
+  /* SCROLL ARROW */
+  .scroll-arrow {
+    display: flex;
+    justify-content: center;
+    margin: 32px 0 0;
+  }
+  .scroll-arrow .circle {
+    width: 44px; height: 44px;
+    border: 2px solid var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--green);
+    font-size: 1.2rem;
+    animation: bounce 1.8s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* SECTION BASE */
+  section { padding: 64px 20px; }
+  .container { max-width: 720px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 900;
+    color: var(--dark);
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.3;
+  }
+  .section-title em { color: var(--green); font-style: normal; }
+
+  /* MOCKUP DEVICES */
+  .mockup-section {
+    background: var(--gray-light);
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .mockup-img-placeholder {
+    max-width: 500px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #c8e6cb, #a5d6a7);
+    border-radius: 24px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 0.9rem;
+    opacity: 0.6;
+  }
+
+  /* COMO VAI TE IMPULSIONAR */
+  .benefits-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 16px rgba(31,168,50,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .benefit-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(31,168,50,0.14); }
+  .benefit-icon {
+    width: 48px; height: 48px;
+    background: var(--green-light);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .benefit-item h3 { font-size: 1rem; font-weight: 800; color: var(--dark); margin-bottom: 4px; }
+  .benefit-item p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
+
+  /* PARA QUEM É */
+  .for-who {
+    background: var(--dark);
+    padding: 60px 20px;
+  }
+  .for-who .section-title { color: #fff; }
+  .for-who-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .for-card {
+    background: var(--green);
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    color: #fff;
+  }
+  .for-card-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+  .for-card p { font-size: 0.95rem; line-height: 1.6; font-weight: 600; }
+
+  /* BIANCA */
+  .author-section { background: var(--gray-light); }
+  .author-label {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+  .author-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .author-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .author-photo {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a5d6a7, #66bb6a);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--green-dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-align: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .author-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .author-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--green); }
+  .author-role { font-size: 0.85rem; color: var(--gray); }
+  .author-quote {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.75;
+    border-left: 3px solid var(--green);
+    padding-left: 16px;
+    font-style: italic;
+  }
+
+  /* DEPOIMENTOS */
+  .testimonials { background: #fff; }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  @media(min-width: 600px) {
+    .testimonials-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .testimonial-card {
+    background: var(--green-light);
+    border-radius: 16px;
+    padding: 20px;
+    border-top: 3px solid var(--green);
+  }
+  .testimonial-card .quote-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+  .testimonial-card p {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .testimonial-card .highlight { color: var(--green); font-weight: 700; }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .testimonial-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .testimonial-author span { font-size: 0.8rem; color: var(--gray); }
+
+  /* PACOTE INFO */
+  .package-info {
+    background: var(--gray-light);
+    text-align: center;
+  }
+  .package-box {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    max-width: 560px;
+    margin: 0 auto 32px;
+  }
+  .package-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+  .package-box .sub { font-size: 0.9rem; color: var(--gray); margin-bottom: 20px; }
+  .package-items {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .package-items li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .package-items li::before {
+    content: '✅';
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  /* VALOR TABLE */
+  .value-table {
+    max-width: 560px;
+    margin: 0 auto 24px;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+  .value-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+  }
+  .value-row:last-child { border-bottom: none; }
+  .value-row .item { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; }
+  .value-row .price { color: var(--gray); font-weight: 700; }
+  .value-total-label { text-align: center; font-size: 0.9rem; color: var(--gray); margin-bottom: 6px; }
+  .value-strike {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #bbb;
+    text-decoration: line-through;
+    margin-bottom: 8px;
+  }
+  .value-cta-text {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 28px;
+  }
+  .value-cta-text em { color: var(--green); font-style: normal; }
+
+  /* GARANTIA */
+  .guarantee {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+    padding: 60px 20px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .guarantee::before, .guarantee::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .guarantee::before { width: 300px; height: 300px; top: -100px; left: -100px; }
+  .guarantee::after { width: 200px; height: 200px; bottom: -80px; right: -60px; }
+  .guarantee h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+  .guarantee p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    max-width: 480px;
+    margin: 0 auto 28px;
+    line-height: 1.8;
+  }
+  .guarantee-badge {
+    width: 165px; height: 165px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 36px;
+    position: relative;
+    z-index: 1;
+    animation: badge-glow 2.5s ease-in-out infinite alternate;
+  }
+  .guarantee-badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #B8860B, #FFD700, #FFED80, #FFD700, #DAA520, #B8860B, #FFD700);
+    z-index: -2;
+    animation: spin-gold 8s linear infinite;
+  }
+  .guarantee-badge::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #1b5e2d 0%, #226635 60%, #1a5228 100%);
+    z-index: -1;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.35), inset 0 -1px 0 rgba(255,255,255,0.08);
+  }
+  @keyframes spin-gold {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes badge-glow {
+    from { filter: drop-shadow(0 0 10px rgba(255,215,0,0.45)); }
+    to { filter: drop-shadow(0 0 28px rgba(255,215,0,0.9)) drop-shadow(0 8px 24px rgba(0,0,0,0.55)); }
+  }
+  .badge-icon { width: 26px; height: 26px; margin-bottom: 3px; }
+  .guarantee-badge .number {
+    font-size: 3rem; font-weight: 900; line-height: 1;
+    background: linear-gradient(180deg, #FFED80 0%, #FFD700 50%, #DAA520 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .guarantee-badge .label {
+    font-size: 0.58rem; font-weight: 800; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.9);
+    text-align: center; line-height: 1.5; margin-top: 3px;
+  }
+  .guarantee .btn-primary { background: #fff; color: var(--green-dark); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+  .guarantee .btn-primary:hover { box-shadow: 0 10px 32px rgba(0,0,0,0.3); }
+
+  /* PRICING */
+  .pricing {
+    background: var(--gray-light);
+    text-align: center;
+    padding: 64px 20px;
+  }
+  .pricing-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray);
+    margin-bottom: 8px;
+  }
+  .pricing-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 680px;
+    margin: 32px auto 0;
+  }
+  @media(min-width: 600px) {
+    .pricing-cards { flex-direction: row; align-items: flex-start; }
+  }
+  .price-card {
+    flex: 1;
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    text-align: center;
+    position: relative;
+  }
+  .price-card.premium {
+    border: 3px solid var(--accent);
+    box-shadow: 0 8px 32px rgba(245,166,35,0.2);
+  }
+  .badge-mais-vendido {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .price-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .price-card.premium h3 { color: var(--accent); }
+  .price-card .whats-inside {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray);
+    margin-bottom: 14px;
+  }
+  .price-card ul {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .price-card ul li {
+    font-size: 0.88rem;
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .price-card ul li::before { content: '✅'; flex-shrink: 0; }
+  .price-installment {
+    font-size: 0.82rem;
+    color: var(--gray);
+    margin-bottom: 4px;
+  }
+  .price-main {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .price-card.premium .price-main { color: var(--accent); }
+  .price-avista {
+    font-size: 0.82rem;
+    color: var(--gray);
+    margin-bottom: 20px;
+  }
+  .price-value-stack {
+    background: var(--green-light);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    font-size: 0.8rem;
+    color: var(--gray);
+  }
+  .price-value-stack strong { display: block; color: var(--green-dark); font-size: 0.85rem; }
+  .trust-icons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 14px;
+    font-size: 0.7rem;
+    color: var(--gray);
+  }
+  .trust-icon { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .trust-icon span { font-size: 1.2rem; }
+
+  /* FAQ */
+  .faq { background: #fff; }
+  .faq-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 36px;
+    letter-spacing: -0.5px;
+  }
+  .faq-list { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    border-radius: 14px;
+    border: 1.5px solid #e8f0e8;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .faq-item:hover { box-shadow: 0 4px 16px rgba(31,168,50,0.1); }
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 18px 20px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .faq-question .plus {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--green-light);
+    color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.75;
+    padding: 0 20px;
+  }
+  .faq-item.open .faq-answer {
+    max-height: 200px;
+    padding: 0 20px 18px;
+  }
+  .faq-item.open .plus { transform: rotate(45deg); background: var(--green); color: #fff; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 0.82rem;
+  }
+  footer strong { color: rgba(255,255,255,0.9); }
+
+  /* CAROUSEL */
+  .carousel-mockup {
+    position: relative;
+    max-width: 540px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .carousel-track img {
+    min-width: 100%;
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+  }
+  .carousel-btn {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.92);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    color: var(--green);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    z-index: 2;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .carousel-btn:hover { background: #fff; transform: translateY(-50%) scale(1.1); }
+  .carousel-btn.prev { left: 14px; }
+  .carousel-btn.next { right: 14px; }
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .carousel-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green-light);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .carousel-dot.active { background: var(--green); transform: scale(1.3); }
+
+  /* URGENCY SECTION */
+  .urgency {
+    background: #fff8e6;
+    border-top: 3px solid var(--accent);
+    border-bottom: 3px solid var(--accent);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .urgency p {
+    font-size: 0.95rem;
+    color: var(--dark);
+    font-weight: 700;
+  }
+  .urgency span { color: var(--green); }
+
+  .text-center { text-align: center; }
+  .mt-32 { margin-top: 32px; }
+  .mb-8 { margin-bottom: 8px; }
+</style>
+  <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+  <link rel="preload" href="https://scripts.converteai.net/8f8a1087-a192-4f93-9fe2-baacd1e8f7f1/players/69eed425efb9293f9757c938/v4/player.js" as="script">
+  <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+  <link rel="preload" href="https://cdn.converteai.net/8f8a1087-a192-4f93-9fe2-baacd1e8f7f1/69eed42079a9b357d912eb0e/main.m3u8" as="fetch">
+  <link rel="dns-prefetch" href="https://cdn.converteai.net">
+  <link rel="dns-prefetch" href="https://scripts.converteai.net">
+  <link rel="dns-prefetch" href="https://images.converteai.net">
+  <link rel="dns-prefetch" href="https://api.vturb.com.br">
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1975900279968460');
+  fbq('track', 'PageView');
+  fbq('track', 'ViewContent');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1975900279968460&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- BARRA TOPO -->
+<div class="top-bar">
+  ⚡ Oferta por tempo limitado — <span>mais de +4.000 nutricionistas</span> já transformaram sua rotina com o NutriPrime
+</div>
+
+<!-- TOAST SOCIAL PROOF -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✅</div>
+  <div>
+    <strong>Carlos Souza, Brasília – DF</strong>
+    <span>adquiriu o Pacote Premium há 25 min</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">+1.500 materiais prontos para nutricionistas</div>
+  <h1>Transforme suas consultas em experiências <em>inesquecíveis</em> e fidelize mais pacientes</h1>
+  <p class="hero-sub">Chega de perder horas criando conteúdo do zero. Tenha em mãos recursos profissionais que <strong>geram autoridade, encantam seus pacientes</strong> e aumentam seu faturamento.</p>
+
+  <!-- VSL VTURB -->
+  <vturb-smartplayer id="vid-69eed425efb9293f9757c938" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
+  <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/8f8a1087-a192-4f93-9fe2-baacd1e8f7f1/players/69eed425efb9293f9757c938/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
+
+  <div class="social-proof-bar">
+    <span class="stars">★★★★★</span>
+    <strong>4.9/5</strong>
+    <span class="dot">•</span>
+    <span>+4.000 Nutris Utilizam</span>
+  </div>
+
+  <a href="https://pay.kiwify.com.br/VsaCMhs" class="btn-primary" target="_blank" rel="noopener">QUERO MAIS TEMPO E PACIENTES SATISFEITOS!</a>
+
+  <div class="scroll-arrow">
+    <div class="circle">↓</div>
+  </div>
+</section>
+
+<!-- MOCKUP DEVICES -->
+<div class="mockup-section">
+  <img src="images/Mokap do produto.webp" alt="Mockup Nutri Prime" style="display:block; margin:0 auto; max-width:500px; width:100%; border-radius:24px;">
+</div>
+
+<!-- COMO VAI TE IMPULSIONAR -->
+<section style="background: #fff;">
+  <div class="container">
+    <h2 class="section-title">Como o <em>NutriPrime</em> vai te impulsionar:</h2>
+    <ul class="benefits-list">
+      <li class="benefit-item">
+        <div class="benefit-icon">📄</div>
+        <div>
+          <h3>Materiais explicativos prontos</h3>
+          <p>Deixe cada consulta mais clara e didática, aumentando a adesão e a confiança do seu paciente no seu trabalho.</p>
+        </div>
+      </li>
+      <li class="benefit-item">
+        <div class="benefit-icon">⚙️</div>
+        <div>
+          <h3>Ferramentas de otimização</h3>
+          <p>Ganhe tempo com recursos prontos para acelerar sua rotina de atendimentos e atender mais sem trabalhar mais.</p>
+        </div>
+      </li>
+      <li class="benefit-item">
+        <div class="benefit-icon">💬</div>
+        <div>
+          <h3>Guias de suporte ao paciente</h3>
+          <p>Envie materiais pós-consulta que reduzem dúvidas no WhatsApp, reforçam sua autoridade e criam vínculo duradouro.</p>
+        </div>
+      </li>
+      <li class="benefit-item">
+        <div class="benefit-icon">📋</div>
+        <div>
+          <h3>Templates de plano alimentar</h3>
+          <p>Planos alimentares atrativos, visuais e editáveis que encantam seus pacientes e profissionalizam seu atendimento.</p>
+        </div>
+      </li>
+      <li class="benefit-item">
+        <div class="benefit-icon">🔄</div>
+        <div>
+          <h3>Atualizações mensais inclusas</h3>
+          <p>Receba novos materiais todos os meses sem nenhum custo adicional. Seu acervo sempre crescendo com você.</p>
+        </div>
+      </li>
+    </ul>
+    <div class="text-center mt-32">
+      <a href="https://pay.kiwify.com.br/VsaCMhs" class="btn-primary" target="_blank" rel="noopener">QUERO GARANTIR O MEU AGORA</a>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM É -->
+<section class="for-who">
+  <div class="container">
+    <h2 class="section-title">Para quem é o <em>NutriPrime?</em></h2>
+    <div class="for-who-cards">
+      <div class="for-card">
+        <div class="for-card-icon">🚀</div>
+        <p>Ideal para nutris <strong>recém-formadas</strong> que buscam iniciar a carreira com um atendimento moderno, profissional e cativante desde o primeiro paciente.</p>
+      </div>
+      <div class="for-card">
+        <div class="for-card-icon">⭐</div>
+        <p>Perfeito para nutris <strong>experientes</strong> que desejam inovar, otimizar a rotina e fortalecer o vínculo e a fidelização com seus pacientes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE A BIANCA -->
+<section class="author-section">
+  <div class="container">
+    <p class="author-label">Desenvolvido por quem entende a sua rotina.</p>
+    <div class="author-card">
+      <div class="author-top">
+        <div class="author-photo">
+          <img src="images/bia.png" alt="Bianca Andrade">
+        </div>
+        <div>
+          <div class="author-name">Bianca Andrade</div>
+          <div class="author-role">Nutricionista Clínica e Esportiva</div>
+        </div>
+      </div>
+      <p class="author-quote">"Oi, Nutris! Eu sei como é virar noites criando materiais do zero. Cansei de gastar horas no Canva quando deveria estar focando nos meus pacientes. Foi por isso que desenvolvi a solução que eu mesma precisava: um acervo completo que me devolveu o tempo para focar no que importa — gerar resultados reais e fidelizar meus pacientes."</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials">
+  <div class="container">
+    <h2 class="section-title">O impacto do <em>Nutri Prime</em> na carreira de +4.000 nutricionistas:</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="quote-title">"Pacientes estão ELOGIANDO e sobra muito mais tempo"</div>
+        <p>Só passando para deixar meu muito obrigada! Eu estava quase surtando com a quantidade de tempo que eu perdia fazendo material do zero. A plataforma de vocês <span class="highlight">salvou minhas noites de sono</span>. Meus pacientes estão ELOGIANDO o material que eu entrego agora. Fora que sobra muito mais tempo pra eu realmente focar na consulta.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><img src="images/dp01.png" alt="Mari S."></div>
+          <span>Mari S. — Nutricionista</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="quote-title">"Meu trabalho tá sendo mais valorizado"</div>
+        <p>Só queria dizer que o material de vocês é TUDO! Eu era recém-formada e tava super insegura sobre como deixar meu atendimento com uma cara mais profissional. Depois que comecei a usar os templates de plano alimentar e as ferramentas, <span class="highlight">consegui fechar meu primeiro pacote de acompanhamento</span>!</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><img src="images/dp02.png" alt="Julia R."></div>
+          <span>Julia R. — Nutricionista</span>
+        </div>
+      </div>
+      <div class="testimonial-card" style="grid-column: 1 / -1;">
+        <div class="quote-title">"Minha base de clientes aumentou demais nos últimos meses"</div>
+        <p>Eu estava com muita dificuldade de fidelizar pacientes, sabe? A primeira consulta ia bem, mas muitos não voltavam. Depois que comecei a usar os materiais de vocês, tudo mudou. Meu atendimento ficou com outra cara, <span class="highlight">muito mais profissional</span>, e os pacientes sentem isso. O resultado é que eles começaram a me indicar muito mais! <span class="highlight">Minha base de clientes triplicou nos últimos meses</span>, e finalmente tô vendo minha agenda encher.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><img src="images/dp03.png" alt="Sara L."></div>
+          <span>Sara L. — Nutricionista</span>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-32">
+      <a href="https://pay.kiwify.com.br/VsaCMhs" class="btn-primary" target="_blank" rel="noopener">QUERO AUMENTAR MEUS RESULTADOS</a>
+    </div>
+  </div>
+</section>
+
+<!-- PACOTE INFO -->
+<section class="package-info">
+  <div class="container">
+    <div class="package-box">
+      <h3>Pacote Nutri Prime</h3>
+      <p class="sub">Nutricionistas de sucesso utilizam as ferramentas certas.</p>
+      <ul class="package-items">
+        <li>Conteúdo para todas as áreas da Nutrição</li>
+        <li>Materiais 100% prontos e editáveis</li>
+        <li>Surpreenda e fidelize seus pacientes</li>
+        <li>Profissionalize e valorize suas consultas</li>
+        <li>Economize dezenas de horas de trabalho por mês</li>
+      </ul>
+    </div>
+
+    <h2 class="section-title">Simplifique e <em>Encante</em></h2>
+    <p style="text-align:center; color: var(--gray); margin-bottom: 24px;">+1.500 materiais prontos para otimizar sua rotina e impressionar seus pacientes.</p>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-mockup" id="carousel">
+      <div class="carousel-track" id="carouselTrack">
+        <img src="images/01.png" alt="Material Nutri Prime 1">
+        <img src="images/02.png" alt="Material Nutri Prime 2">
+        <img src="images/03.png" alt="Material Nutri Prime 3">
+        <img src="images/04.png" alt="Material Nutri Prime 4">
+      </div>
+      <button class="carousel-btn prev" id="carouselPrev">‹</button>
+      <button class="carousel-btn next" id="carouselNext">›</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots">
+      <button class="carousel-dot active" data-index="0"></button>
+      <button class="carousel-dot" data-index="1"></button>
+      <button class="carousel-dot" data-index="2"></button>
+      <button class="carousel-dot" data-index="3"></button>
+    </div>
+
+    <div class="text-center mt-32">
+      <a href="https://pay.kiwify.com.br/VsaCMhs" class="btn-primary" target="_blank" rel="noopener">QUERO GARANTIR O MEU ACESSO</a>
+    </div>
+  </div>
+</section>
+
+<!-- URGÊNCIA + TABELA DE VALOR -->
+<section style="background: #fff; padding: 64px 20px;">
+  <div class="container">
+    <h2 class="section-title">Tudo isso que você vai levar <em>hoje por apenas uma única vez:</em></h2>
+    <div class="value-table">
+      <div class="value-row">
+        <span class="item">📄 +1.500 Ferramentas Profissionais</span>
+        <span class="price">R$197,00</span>
+      </div>
+      <div class="value-row">
+        <span class="item">💬 Guias de Suporte ao Paciente</span>
+        <span class="price">R$97,00</span>
+      </div>
+      <div class="value-row">
+        <span class="item">⚙️ Templates de Plano Alimentar</span>
+        <span class="price">R$67,00</span>
+      </div>
+      <div class="value-row">
+        <span class="item">🔧 Ferramentas de Otimização</span>
+        <span class="price">R$77,00</span>
+      </div>
+      <div class="value-row">
+        <span class="item">🔄 Atualizações Mensais</span>
+        <span class="price">R$47,00</span>
+      </div>
+    </div>
+    <p class="value-total-label">No total tudo isso deveria custar:</p>
+    <p class="value-strike">R$485,00</p>
+    <p class="value-cta-text">Mas hoje você paga apenas <em>uma única vez</em></p>
+
+    <div class="scroll-arrow">
+      <div class="circle">↓</div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section class="guarantee">
+  <h2>7 DIAS DE GARANTIA INCONDICIONAL</h2>
+  <p>Se dentro de 7 dias você não sentir que o Nutri Prime economizou horas do seu tempo e valorizou seu atendimento, devolvemos 100% do seu investimento. Simples assim, risco zero!</p>
+  <div class="guarantee-badge">
+    <svg class="badge-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.5C16.5 22.15 20 17.25 20 12V6l-8-4z" fill="url(#shield-grad)"/>
+      <path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="shield-grad" x1="4" y1="2" x2="20" y2="24" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#FFED80"/>
+          <stop offset="100%" stop-color="#DAA520"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <span class="number">7</span>
+    <span class="label">DIAS<br>DE GARANTIA</span>
+  </div>
+  <a href="https://pay.kiwify.com.br/VsaCMhs" class="btn-primary" target="_blank" rel="noopener">QUERO MEU ACESSO SEGURO</a>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="planos">
+  <p class="pricing-label">Escolha o plano ideal para você:</p>
+  <h2 class="section-title" style="margin-bottom: 0;">Comece hoje mesmo</h2>
+
+  <div class="pricing-cards">
+    <!-- BÁSICO -->
+    <div class="price-card">
+      <h3>Pacote Básico</h3>
+      <p class="whats-inside">O que está incluso:</p>
+      <ul>
+        <li>Material com 85 ferramentas</li>
+        <li>6 MESES DE ACESSO</li>
+        <li><strong>Bônus:</strong> Guia de Alimentação Sustentável</li>
+        <li><strong>Bônus:</strong> Livro de Receitas "Sabores Fit"</li>
+        <li><strong>Bônus:</strong> 50 Refeições Saudáveis</li>
+      </ul>
+      <p class="price-installment">Por apenas:</p>
+      <p class="price-main">R$27,00</p>
+      <div class="trust-icons">
+        <div class="trust-icon"><span>🔒</span><div>Compra Segura</div></div>
+        <div class="trust-icon"><span>✅</span><div>Satisfação</div></div>
+        <div class="trust-icon"><span>🛡️</span><div>Privacidade</div></div>
+      </div>
+      <div style="margin-top: 20px;">
+        <a href="https://pay.kiwify.com.br/M6tp5l4" class="btn-primary" target="_blank" rel="noopener" style="width: 100%; display: block; text-align: center;">QUERO O BÁSICO</a>
+      </div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="price-card premium">
+      <div class="badge-mais-vendido">🔥 MAIS VENDIDO</div>
+      <h3>Pacote Premium</h3>
+      <p class="whats-inside">O que está incluso:</p>
+      <ul>
+        <li>+1.500 ferramentas prontas</li>
+        <li>ACESSO VITALÍCIO</li>
+        <li>Materiais para todas as áreas da nutrição</li>
+        <li>Todas as atualizações futuras</li>
+        <li>Todos os 10 Bônus inclusos:</li>
+        <li><strong>Bônus:</strong> Recursos para Antropometria Digital</li>
+        <li><strong>Bônus:</strong> Material para Atendimento Online</li>
+        <li><strong>Bônus:</strong> Fichas de Anamnese e Evolução</li>
+        <li><strong>Bônus:</strong> 50 Refeições Saudáveis</li>
+        <li><strong>Bônus:</strong> Livro de Receitas "Sabores Fit"</li>
+        <li><strong>Bônus:</strong> Planilhas de Cálculos Nutricionais</li>
+        <li><strong>Bônus:</strong> Guia de Alimentação Sustentável</li>
+        <li><strong>Bônus:</strong> Guia Prático de Papinhas para Bebês</li>
+        <li><strong>Bônus:</strong> Guia de Interpretação de Exames</li>
+        <li><strong>Bônus:</strong> Planilha de Gestão para Nutris</li>
+      </ul>
+      <div class="price-value-stack">
+        Pacote Nutri Prime: <strong>R$97,00</strong>
+        +10 Bônus: <strong style="color: var(--accent);">R$284,20</strong>
+      </div>
+      <p class="price-installment">Por 12x de</p>
+      <p class="price-main">R$6,73</p>
+      <p class="price-avista">Ou R$67,00 à vista</p>
+      <div class="trust-icons">
+        <div class="trust-icon"><span>🔒</span><div>Compra Segura</div></div>
+        <div class="trust-icon"><span>✅</span><div>Satisfação</div></div>
+        <div class="trust-icon"><span>🛡️</span><div>Privacidade</div></div>
+      </div>
+      <div style="margin-top: 20px;">
+        <a href="https://pay.kiwify.com.br/VsaCMhs" class="btn-secondary" target="_blank" rel="noopener" style="width: 100%; display: block; text-align: center;">QUERO O PREMIUM COMPLETO</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <h2 class="faq-title">PERGUNTAS FREQUENTES</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">Por que o preço é tão acessível? <span class="plus">+</span></button>
+        <div class="faq-answer">Acreditamos que toda nutricionista, independente do momento da carreira, merece ter acesso a materiais profissionais. Nosso objetivo é democratizar ferramentas de qualidade para que você possa crescer mais rápido e atender melhor seus pacientes.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Tenho garantia? <span class="plus">+</span></button>
+        <div class="faq-answer">Sim! Você tem 7 dias de garantia incondicional. Se por qualquer motivo não ficar satisfeita, basta solicitar o reembolso e devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Como receberei o acesso? <span class="plus">+</span></button>
+        <div class="faq-answer">Após a confirmação do pagamento, você receberá um e-mail com as instruções de acesso. O processo é rápido e você pode começar a usar os materiais em minutos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Por quanto tempo terei acesso? <span class="plus">+</span></button>
+        <div class="faq-answer">No Pacote Básico, você tem 6 meses de acesso. No Pacote Premium, o acesso é vitalício — você nunca perde seus materiais e ainda recebe todas as atualizações futuras sem pagar nada a mais.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Quais são as formas de pagamento? <span class="plus">+</span></button>
+        <div class="faq-answer">Aceitamos cartão de crédito (parcelado em até 12x), PIX e boleto bancário. A compra é 100% segura com criptografia de dados.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Qual o formato do Nutri Prime? <span class="plus">+</span></button>
+        <div class="faq-answer">Todos os materiais são digitais, 100% editáveis e prontos para usar. Você pode personalizá-los com o nome da sua clínica, suas cores e sua identidade visual facilmente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>© 2025 Nutri Prime</strong></p>
+  <p style="margin-top: 6px;">Todos os Direitos Reservados</p>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Toast auto-hide
+  setTimeout(() => {
+    const t = document.getElementById('toast');
+    if (t) t.style.display = 'none';
+  }, 6000);
+
+  // Rotate toasts
+  const toastData = [
+    { name: 'Ana Lima, SP', plan: 'Pacote Premium', time: '12 min' },
+    { name: 'Fernanda Costa, RJ', plan: 'Pacote Básico', time: '3 min' },
+    { name: 'Juliana Melo, MG', plan: 'Pacote Premium', time: '8 min' },
+  ];
+  let toastIndex = 0;
+  setInterval(() => {
+    toastIndex = (toastIndex + 1) % toastData.length;
+    const d = toastData[toastIndex];
+    const t = document.getElementById('toast');
+    if (t) {
+      t.style.display = 'flex';
+      t.style.animation = 'none';
+      t.offsetHeight;
+      t.style.animation = 'slideInToast 0.5s ease';
+      t.querySelector('strong').textContent = d.name;
+      t.querySelector('span').textContent = `adquiriu o ${d.plan} há ${d.time}`;
+      setTimeout(() => { if(t) t.style.display = 'none'; }, 5500);
+    }
+  }, 12000);
+</script>
+
+<script>
+  document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (typeof fbq === 'function') fbq('track', 'InitiateCheckout');
+    });
+  });
+
+  (function() {
+    var track = document.getElementById('carouselTrack');
+    var dots = document.querySelectorAll('.carousel-dot');
+    var total = 4;
+    var current = 0;
+
+    function goTo(index) {
+      current = (index + total) % total;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function(d, i) {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    document.getElementById('carouselPrev').addEventListener('click', function() { goTo(current - 1); });
+    document.getElementById('carouselNext').addEventListener('click', function() { goTo(current + 1); });
+    dots.forEach(function(d) {
+      d.addEventListener('click', function() { goTo(parseInt(d.dataset.index)); });
+    });
+
+    setInterval(function() { goTo(current + 1); }, 4000);
+  })();
+</script>
+</body>
+</html>

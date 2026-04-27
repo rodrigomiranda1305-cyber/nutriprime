@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(start \"c:\\\\Users\\\\rodri\\\\projetos\\\\nutriprime\\\\index.html\")",
+      "Bash(mkdir -p \"c:/Users/rodri/projetos/nutriprime/images\")",
+      "Bash(cp \"c:/Users/rodri/Downloads/Fotos do site/01.png\" \"c:/Users/rodri/projetos/nutriprime/images/01.png\")",
+      "Bash(cp \"c:/Users/rodri/Downloads/Fotos do site/02.png\" \"c:/Users/rodri/projetos/nutriprime/images/02.png\")",
+      "Bash(cp \"c:/Users/rodri/Downloads/Fotos do site/03.png\" \"c:/Users/rodri/projetos/nutriprime/images/03.png\")",
+      "Bash(cp \"c:/Users/rodri/Downloads/Fotos do site/04.png\" \"c:/Users/rodri/projetos/nutriprime/images/04.png\")",
+      "Read(//c/Users/rodri/Downloads/**)",
+      "Bash(git add *)"
+    ]
+  }
+}
