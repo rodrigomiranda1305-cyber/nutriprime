@@ -9,7 +9,8 @@
       "Bash(cp \"c:/Users/rodri/Downloads/Fotos do site/04.png\" \"c:/Users/rodri/projetos/nutriprime/images/04.png\")",
       "Read(//c/Users/rodri/Downloads/**)",
       "Bash(git add *)",
-      "Bash(start index.html)"
+      "Bash(start index.html)",
+      "Bash(git commit *)"
     ]
   }
 }
