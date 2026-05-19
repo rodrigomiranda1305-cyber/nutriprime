@@ -276,19 +276,20 @@
     border-radius: 16px;
     padding: 20px;
     box-shadow: 0 2px 16px rgba(31,168,50,0.08);
+    border: 1px solid rgba(34,197,94,0.25);
     transition: transform 0.2s, box-shadow 0.2s;
   }
   .benefit-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(31,168,50,0.14); }
   .benefit-icon {
     width: 48px; height: 48px;
-    background: var(--green-light);
+    background: #22c55e;
     border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.4rem;
     flex-shrink: 0;
   }
-  .benefit-item h3 { font-size: 1rem; font-weight: 800; color: var(--dark); margin-bottom: 4px; }
-  .benefit-item p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
+  .benefit-item h3 { font-size: 1rem; font-weight: 800; color: #16a34a; margin-bottom: 4px; }
+  .benefit-item p { font-size: 0.9rem; color: #374a38; line-height: 1.6; }
 
   /* PARA QUEM É */
   .for-who {
@@ -844,6 +845,107 @@
   .text-center { text-align: center; }
   .mt-32 { margin-top: 32px; }
   .mb-8 { margin-bottom: 8px; }
+
+  /* ===== ANIMATION SYSTEM ===== */
+
+  /* 1. Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Stagger for grouped items */
+  .benefit-item:nth-child(2) { transition-delay: 0.08s; }
+  .benefit-item:nth-child(3) { transition-delay: 0.16s; }
+  .benefit-item:nth-child(4) { transition-delay: 0.24s; }
+  .benefit-item:nth-child(5) { transition-delay: 0.32s; }
+  .value-row:nth-child(2)    { transition-delay: 0.07s; }
+  .value-row:nth-child(3)    { transition-delay: 0.14s; }
+  .value-row:nth-child(4)    { transition-delay: 0.21s; }
+  .value-row:nth-child(5)    { transition-delay: 0.28s; }
+  .price-card:nth-child(2)   { transition-delay: 0.12s; }
+  .for-card:nth-child(2)     { transition-delay: 0.12s; }
+
+  /* 2. Hero entrance */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge    { opacity: 0; animation: fadeInDown 0.5s ease-out 0.15s forwards; }
+  .hero h1       { opacity: 0; animation: fadeInDown 0.55s ease-out 0.3s forwards; }
+  .hero .hero-sub { opacity: 0; animation: fadeInDown 0.55s ease-out 0.45s forwards; }
+
+  /* 3. Button pulse + shimmer */
+  @keyframes btn-pulse {
+    0%, 100% { box-shadow: 0 6px 24px rgba(31,168,50,0.4); }
+    50% { box-shadow: 0 10px 38px rgba(31,168,50,0.68), 0 0 0 7px rgba(31,168,50,0.1); }
+  }
+  @keyframes btn-pulse-sec {
+    0%, 100% { box-shadow: 0 6px 24px rgba(245,166,35,0.4); }
+    50% { box-shadow: 0 10px 38px rgba(245,166,35,0.68), 0 0 0 7px rgba(245,166,35,0.1); }
+  }
+  @keyframes btn-shimmer {
+    0%        { left: -100%; opacity: 0; }
+    10%       { opacity: 0.75; }
+    55%       { left: 150%; opacity: 0.75; }
+    56%, 100% { left: 150%; opacity: 0; }
+  }
+  .btn-primary { animation: btn-pulse 2.4s ease-in-out infinite; }
+  .btn-primary::after { transition: none !important; animation: btn-shimmer 3.2s ease-in-out 1s infinite; }
+  .btn-primary:hover { animation-play-state: paused; transform: scale(1.05) translateY(-2px) !important; box-shadow: 0 14px 40px rgba(31,168,50,0.65) !important; }
+  .btn-primary:hover::after { animation-play-state: paused; }
+  .guarantee .btn-primary:hover { box-shadow: 0 10px 32px rgba(0,0,0,0.3) !important; }
+
+  .btn-secondary { position: relative; overflow: hidden; animation: btn-pulse-sec 2.4s ease-in-out 0.4s infinite; }
+  .btn-secondary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: rgba(255,255,255,0.15);
+    transform: skewX(-20deg);
+    transition: none !important;
+    animation: btn-shimmer 3.2s ease-in-out 2s infinite;
+  }
+  .btn-secondary:hover { animation-play-state: paused; transform: scale(1.05) translateY(-2px) !important; box-shadow: 0 14px 40px rgba(245,166,35,0.65) !important; }
+  .btn-secondary:hover::after { animation-play-state: paused; }
+
+  /* 4. Benefit icon rotate on hover */
+  .benefit-icon { transition: transform 0.35s ease; }
+  .benefit-item:hover .benefit-icon { transform: rotate(15deg) scale(1.1); }
+
+  /* 5. Image scale reveal */
+  .img-reveal {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .img-reveal.visible { opacity: 1; transform: scale(1); }
+
+  /* 6. Testimonials carousel */
+  .testimonials-grid { display: block !important; position: relative; }
+  .testimonial-card { display: none; }
+  .testimonial-card.t-active { display: block; animation: tCardIn 0.45s ease-out; }
+  @keyframes tCardIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .t-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  .t-dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--green-light);
+    border: 2px solid rgba(34,197,94,0.4);
+    cursor: pointer; padding: 0;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .t-dot.active { background: #22c55e; transform: scale(1.35); }
+
+  /* 7. Hero canvas particles */
+  #hero-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+  .hero > *:not(#hero-canvas) { position: relative; z-index: 1; }
 </style>
   <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
   <link rel="preload" href="https://scripts.converteai.net/8f8a1087-a192-4f93-9fe2-baacd1e8f7f1/players/69eed425efb9293f9757c938/v4/player.js" as="script">
@@ -886,7 +988,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-badge">+1.500 materiais prontos para nutricionistas</div>
-  <h1>Transforme suas consultas em experiências <em>inesquecíveis</em> e fidelize mais pacientes</h1>
+  <h1>Suas consultas merecem ser tão boas quanto seu conhecimento. Materiais prontos para você atender com mais confiança e cobrar mais.</h1>
   <p class="hero-sub">Chega de perder horas criando conteúdo do zero. Tenha em mãos recursos profissionais que <strong>geram autoridade, encantam seus pacientes</strong> e aumentam seu faturamento.</p>
 
   <!-- VSL VTURB -->
@@ -1147,9 +1249,7 @@
         <li><strong>Bônus:</strong> Livro de Receitas "Sabores Fit"</li>
         <li><strong>Bônus:</strong> 50 Refeições Saudáveis</li>
       </ul>
-      <p class="price-installment">4x de</p>
-      <p class="price-main">R$5,42</p>
-      <p class="price-avista">Ou R$19,90 à vista</p>
+      <p class="price-main">R$19,90</p>
       <div class="trust-icons">
         <div class="trust-icon"><span>🔒</span><div>Compra Segura</div></div>
         <div class="trust-icon"><span>✅</span><div>Satisfação</div></div>
@@ -1185,9 +1285,7 @@
       <div class="price-value-stack">
         Pacote Nutri Prime: <strong>R$29,90</strong>
       </div>
-      <p class="price-installment">6x de</p>
-      <p class="price-main">R$5,61</p>
-      <p class="price-avista">Ou R$29,90 à vista</p>
+      <p class="price-main">R$29,90</p>
       <div class="trust-icons">
         <div class="trust-icon"><span>🔒</span><div>Compra Segura</div></div>
         <div class="trust-icon"><span>✅</span><div>Satisfação</div></div>
@@ -1277,6 +1375,193 @@
       setTimeout(() => { if(t) t.style.display = 'none'; }, 5500);
     }
   }, 12000);
+</script>
+
+<!-- canvas-confetti CDN -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ---- 1. SCROLL REVEAL ---- */
+  var revealEls = document.querySelectorAll(
+    '.section-title, .benefit-item, .for-card, .author-card, ' +
+    '.price-card, .value-row, .faq-item, .mockup-section, ' +
+    '.guarantee-badge, .package-box, .pricing-label, .social-proof-bar'
+  );
+  revealEls.forEach(function(el) { el.classList.add('reveal'); });
+
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(function(el) { revealObs.observe(el); });
+
+  /* ---- 2. IMAGE SCALE REVEAL ---- */
+  var imgEls = document.querySelectorAll('.author-photo img, .mockup-section img');
+  imgEls.forEach(function(img) { img.classList.add('img-reveal'); });
+  var imgObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        imgObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  imgEls.forEach(function(img) { imgObs.observe(img); });
+
+  /* ---- 3. TESTIMONIALS CAROUSEL ---- */
+  var tGrid = document.querySelector('.testimonials-grid');
+  if (tGrid) {
+    var tCards = Array.from(tGrid.querySelectorAll('.testimonial-card'));
+    tCards.forEach(function(c) { c.style.gridColumn = ''; });
+    tCards[0].classList.add('t-active');
+
+    var dotsWrap = document.createElement('div');
+    dotsWrap.className = 't-dots';
+    tCards.forEach(function(_, i) {
+      var d = document.createElement('button');
+      d.className = 't-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Depoimento ' + (i + 1));
+      d.addEventListener('click', function() { goToT(i); });
+      dotsWrap.appendChild(d);
+    });
+    tGrid.insertAdjacentElement('afterend', dotsWrap);
+
+    var curT = 0;
+    function goToT(idx) {
+      tCards[curT].classList.remove('t-active');
+      dotsWrap.children[curT].classList.remove('active');
+      curT = (idx + tCards.length) % tCards.length;
+      tCards[curT].classList.add('t-active');
+      dotsWrap.children[curT].classList.add('active');
+    }
+    setInterval(function() { goToT(curT + 1); }, 4000);
+  }
+
+  /* ---- 4. CONFETTI ON PRICING ---- */
+  var pricing = document.getElementById('planos');
+  if (pricing) {
+    var confettiFired = false;
+    var confObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting && !confettiFired) {
+          confettiFired = true;
+          if (typeof confetti === 'function') {
+            var opts = { spread: 80, colors: ['#22c55e', '#16a34a', '#f5a623', '#ffd700', '#ffffff'] };
+            confetti(Object.assign({}, opts, { particleCount: 70, origin: { y: 0.2, x: 0.5 } }));
+            setTimeout(function() {
+              confetti(Object.assign({}, opts, { particleCount: 55, angle: 60, origin: { y: 0.25, x: 0.1 } }));
+            }, 500);
+            setTimeout(function() {
+              confetti(Object.assign({}, opts, { particleCount: 55, angle: 120, origin: { y: 0.25, x: 0.9 } }));
+            }, 1000);
+          }
+          confObs.disconnect();
+        }
+      });
+    }, { threshold: 0.25 });
+    confObs.observe(pricing);
+  }
+
+  /* ---- 5. ANIMATED COUNTERS ---- */
+  function animCount(el, to, dur) {
+    var prefix = el.dataset.prefix || '';
+    var suffix = el.dataset.suffix || '';
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var val = Math.floor((1 - Math.pow(1 - p, 3)) * to);
+      el.textContent = prefix + val.toLocaleString('pt-BR') + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function wrapCounts(root) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+    var nodes = [];
+    var node;
+    while ((node = walker.nextNode())) {
+      if (/\+\d[\d\.]+/.test(node.textContent)) nodes.push(node);
+    }
+    nodes.forEach(function(n) {
+      var text = n.textContent;
+      var newHtml = text.replace(/\+(\d[\d\.]*)/g, function(full, num) {
+        var val = parseInt(num.replace(/\./g, ''), 10);
+        if (isNaN(val) || val < 100) return full;
+        return '<span class="count-num" data-target="' + val + '" data-prefix="+" data-suffix="">' + full + '</span>';
+      });
+      if (newHtml !== text) {
+        var wrap = document.createElement('span');
+        wrap.innerHTML = newHtml;
+        n.parentNode.replaceChild(wrap, n);
+      }
+    });
+  }
+  wrapCounts(document.body);
+
+  var countObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        animCount(e.target, parseInt(e.target.dataset.target, 10), 1400);
+        countObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.count-num').forEach(function(el) { countObs.observe(el); });
+
+  /* ---- 6. HERO PARTICLES ---- */
+  var hero = document.querySelector('.hero');
+  if (hero) {
+    var cvs = document.createElement('canvas');
+    cvs.id = 'hero-canvas';
+    hero.insertBefore(cvs, hero.firstChild);
+    var ctx = cvs.getContext('2d');
+
+    function resize() {
+      cvs.width  = hero.offsetWidth;
+      cvs.height = hero.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    var pts = Array.from({ length: 32 }, function() {
+      return {
+        x: Math.random(),
+        y: Math.random(),
+        r: Math.random() * 2.5 + 1,
+        s: Math.random() * 0.35 + 0.12,
+        d: (Math.random() - 0.5) * 0.2,
+        o: Math.random() * 0.28 + 0.07,
+      };
+    });
+
+    function draw() {
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
+      pts.forEach(function(p) {
+        ctx.beginPath();
+        ctx.arc(p.x * cvs.width, p.y * cvs.height, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(34,197,94,' + p.o + ')';
+        ctx.fill();
+        p.y -= p.s / cvs.height;
+        p.x += p.d / cvs.width;
+        if (p.y < 0) { p.y = 1; p.x = Math.random(); }
+        if (p.x < 0) p.x = 1;
+        if (p.x > 1) p.x = 0;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+})();
 </script>
 
 <script>
