@@ -1501,14 +1501,42 @@
         if (e.isIntersecting && !confettiFired) {
           confettiFired = true;
           if (typeof confetti === 'function') {
-            var opts = { spread: 80, colors: ['#22c55e', '#16a34a', '#f5a623', '#ffd700', '#ffffff'] };
-            confetti(Object.assign({}, opts, { particleCount: 70, origin: { y: 0.2, x: 0.5 } }));
-            setTimeout(function() {
-              confetti(Object.assign({}, opts, { particleCount: 55, angle: 60, origin: { y: 0.25, x: 0.1 } }));
-            }, 500);
-            setTimeout(function() {
-              confetti(Object.assign({}, opts, { particleCount: 55, angle: 120, origin: { y: 0.25, x: 0.9 } }));
-            }, 1000);
+            var colors = ['#22c55e', '#16a34a', '#ffd700', '#f5a623', '#ffffff', '#ffaa00'];
+            var base = {
+              spread: 120,
+              startVelocity: 60,
+              scalar: 1.5,
+              colors: colors,
+              ticks: 240,
+            };
+            function fireWave() {
+              // canto inferior esquerdo — sobe para direita
+              confetti(Object.assign({}, base, {
+                particleCount: 150,
+                angle: 60,
+                origin: { x: 0, y: 1 },
+                shapes: ['circle', 'square'],
+              }));
+              // canto inferior direito — sobe para esquerda
+              confetti(Object.assign({}, base, {
+                particleCount: 150,
+                angle: 120,
+                origin: { x: 1, y: 1 },
+                shapes: ['circle', 'square'],
+              }));
+              // estrelas do centro
+              confetti(Object.assign({}, base, {
+                particleCount: 60,
+                angle: 90,
+                spread: 80,
+                origin: { x: 0.5, y: 0.9 },
+                shapes: ['star'],
+                scalar: 1.8,
+              }));
+            }
+            fireWave();
+            setTimeout(fireWave, 400);
+            setTimeout(fireWave, 800);
           }
           confObs.disconnect();
         }
