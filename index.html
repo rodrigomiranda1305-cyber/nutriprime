@@ -946,6 +946,50 @@
   /* 7. Hero canvas particles */
   #hero-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
   .hero > *:not(#hero-canvas) { position: relative; z-index: 1; }
+
+  /* 8. Package-box staggered entrance */
+  .package-box h3,
+  .package-box .sub,
+  .package-box .package-items li { opacity: 0; }
+
+  @keyframes pkgFadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pkgFadeLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .package-box.pkg-active h3  { animation: pkgFadeDown 0.5s ease-out 0s    forwards; }
+  .package-box.pkg-active .sub { animation: pkgFadeDown 0.5s ease-out 0.3s  forwards; }
+  .package-box.pkg-active .package-items li:nth-child(1) { animation: pkgFadeLeft 0.5s ease-out 0.6s forwards; }
+  .package-box.pkg-active .package-items li:nth-child(2) { animation: pkgFadeLeft 0.5s ease-out 0.8s forwards; }
+  .package-box.pkg-active .package-items li:nth-child(3) { animation: pkgFadeLeft 0.5s ease-out 1.0s forwards; }
+  .package-box.pkg-active .package-items li:nth-child(4) { animation: pkgFadeLeft 0.5s ease-out 1.2s forwards; }
+  .package-box.pkg-active .package-items li:nth-child(5) { animation: pkgFadeLeft 0.5s ease-out 1.4s forwards; }
+
+  /* 9. Mockup cinematic entrance + float */
+  .mockup-section img {
+    opacity: 0;
+    transform: scale(0.3) rotate(-5deg);
+    transform-origin: center center;
+    will-change: transform, opacity;
+  }
+  @keyframes mockupIn {
+    from { opacity: 0; transform: scale(0.3) rotate(-5deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+  @keyframes mockupFloat {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-8px); }
+  }
+  .mockup-section img.mockup-enter {
+    animation: mockupIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .mockup-section img.mockup-float {
+    opacity: 1;
+    animation: mockupFloat 3s ease-in-out infinite;
+  }
 </style>
   <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
   <link rel="preload" href="https://scripts.converteai.net/8f8a1087-a192-4f93-9fe2-baacd1e8f7f1/players/69eed425efb9293f9757c938/v4/player.js" as="script">
@@ -1154,10 +1198,12 @@
     <!-- CAROUSEL -->
     <div class="carousel-mockup" id="carousel">
       <div class="carousel-track" id="carouselTrack">
-        <img src="images/01.png" alt="Material Nutri Prime 1">
-        <img src="images/02.png" alt="Material Nutri Prime 2">
-        <img src="images/03.png" alt="Material Nutri Prime 3">
-        <img src="images/04.png" alt="Material Nutri Prime 4">
+        <img src="images/03.png" alt="Material Nutri Prime 1">
+        <img src="images/11.png" alt="Material Nutri Prime 2">
+        <img src="images/10.png" alt="Material Nutri Prime 3">
+        <img src="images/13.png" alt="Material Nutri Prime 4">
+        <img src="images/12.png" alt="Material Nutri Prime 5">
+        <img src="images/14.png" alt="Material Nutri Prime 6">
       </div>
       <button class="carousel-btn prev" id="carouselPrev">‹</button>
       <button class="carousel-btn next" id="carouselNext">›</button>
@@ -1167,6 +1213,8 @@
       <button class="carousel-dot" data-index="1"></button>
       <button class="carousel-dot" data-index="2"></button>
       <button class="carousel-dot" data-index="3"></button>
+      <button class="carousel-dot" data-index="4"></button>
+      <button class="carousel-dot" data-index="5"></button>
     </div>
 
     <div class="text-center mt-32">
@@ -1388,7 +1436,7 @@
   var revealEls = document.querySelectorAll(
     '.section-title, .benefit-item, .for-card, .author-card, ' +
     '.price-card, .value-row, .faq-item, .mockup-section, ' +
-    '.guarantee-badge, .package-box, .pricing-label, .social-proof-bar'
+    '.guarantee-badge, .pricing-label, .social-proof-bar'
   );
   revealEls.forEach(function(el) { el.classList.add('reveal'); });
 
@@ -1403,7 +1451,7 @@
   revealEls.forEach(function(el) { revealObs.observe(el); });
 
   /* ---- 2. IMAGE SCALE REVEAL ---- */
-  var imgEls = document.querySelectorAll('.author-photo img, .mockup-section img');
+  var imgEls = document.querySelectorAll('.author-photo img');
   imgEls.forEach(function(img) { img.classList.add('img-reveal'); });
   var imgObs = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
@@ -1574,7 +1622,7 @@
   (function() {
     var track = document.getElementById('carouselTrack');
     var dots = document.querySelectorAll('.carousel-dot');
-    var total = 4;
+    var total = 6;
     var current = 0;
 
     function goTo(index) {
@@ -1592,6 +1640,44 @@
     });
 
     setInterval(function() { goTo(current + 1); }, 4000);
+  })();
+</script>
+
+<script>
+  (function() {
+    var pkgBox = document.querySelector('.package-box');
+    if (!pkgBox) return;
+    var pkgObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          pkgBox.classList.add('pkg-active');
+          pkgObs.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    pkgObs.observe(pkgBox);
+  })();
+</script>
+
+<script>
+  (function() {
+    var mockupImg = document.querySelector('.mockup-section img');
+    if (!mockupImg) return;
+
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          mockupImg.classList.add('mockup-enter');
+          setTimeout(function() {
+            mockupImg.classList.remove('mockup-enter');
+            mockupImg.classList.add('mockup-float');
+          }, 1200);
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+
+    obs.observe(mockupImg);
   })();
 </script>
 </body>
