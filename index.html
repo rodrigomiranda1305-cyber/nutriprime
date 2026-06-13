@@ -648,8 +648,22 @@
     .benefits h2, .for-whom h2, .testimonials h2, .demo h2, .value-guarantee h2, .plans h2 { font-size: 28px; }
   }
 </style>
+
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1975900279968460');
+fbq('track', 'PageView');
+</script>
+<!-- End Facebook Pixel -->
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1975900279968460&ev=PageView&noscript=1"/></noscript>
 
 <!-- 1. URGENCY BAR -->
 <div class="urgency-bar">
@@ -1043,6 +1057,49 @@
     showToast();
     setInterval(showToast, 30000);
   }, 4000);
+
+  /* ── FACEBOOK PIXEL EVENTS ── */
+
+  // ViewContent — dispara uma vez no carregamento
+  if (typeof fbq === 'function') {
+    fbq('track', 'ViewContent', {
+      content_name: 'NutriPrime Landing Page',
+      content_category: 'Nutrição',
+      currency: 'BRL'
+    });
+  }
+
+  // InitiateCheckout — dispara ao clicar em qualquer botão de compra
+  var buyButtons = document.querySelectorAll('a.btn');
+  buyButtons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout', {
+          content_name: 'NutriPrime',
+          currency: 'BRL',
+          value: 67.00
+        });
+      }
+    });
+  });
+
+  // Lead — dispara uma vez quando o usuário rola mais de 50% da página
+  var leadFired = false;
+  window.addEventListener('scroll', function() {
+    if (leadFired) return;
+    var scrolled = window.scrollY + window.innerHeight;
+    var total = document.documentElement.scrollHeight;
+    if (scrolled / total >= 0.5) {
+      leadFired = true;
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', {
+          content_name: 'NutriPrime',
+          content_category: 'Nutrição'
+        });
+      }
+    }
+  });
+
 })();
 </script>
 </body>
